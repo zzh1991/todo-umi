@@ -2,17 +2,23 @@
 
 ## Getting Started
 
-Install dependencies,
+Install dependencies
 
 ```bash
 $ yarn
 ```
 
-Start the dev server,
+Start the dev server
 
 ```bash
 $ yarn start
 ```
+
+## Display
+
+<div align="center">
+  <img src="./pictures/todo.png" width="1000px" />
+</div>
 
 ## Author
 
