@@ -19,7 +19,7 @@
     ]
   },
   "dependencies": {
-    "@ant-design/icons": "4.1.0",
+    "@ant-design/icons": "4.2.1",
     "@umijs/preset-react": "1.4.22",
     "@umijs/test": "3.1.4",
     "ace-builds": "1.4.11",
