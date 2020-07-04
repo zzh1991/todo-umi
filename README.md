@@ -14,6 +14,12 @@ Start the dev server
 $ yarn start
 ```
 
+### update dependency version
+
+```bash
+yarn upgrade-interactive --latest
+```
+
 ## Display
 
 <div align="center">
@@ -32,5 +38,5 @@ Please ⭐️ this repository if this project helped you!
 
 ## 📝 License
 
-Copyright © 2019 [zzh1991](https://github.com/zzh1991).<br />
+Copyright © 2020 [zzh1991](https://github.com/zzh1991).<br />
 This project is [MIT](https://github.com/zzh1991/todo-umi/blob/master/LICENSE) licensed.

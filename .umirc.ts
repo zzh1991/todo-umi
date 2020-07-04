@@ -45,4 +45,7 @@ export default defineConfig({
       component: '@/pages/deleted',
     },
   ],
+  antd: {
+    dark: true,
+  },
 });
