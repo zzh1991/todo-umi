@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
-import { Button, Table, Modal, Select, Input, DatePicker, Tag, notification } from 'antd';
+import {
+  Button,
+  Table,
+  Modal,
+  Select,
+  Input,
+  DatePicker,
+  Tag,
+  notification,
+} from 'antd';
 import { FileAddFilled, EditFilled } from '@ant-design/icons';
 import { connect } from 'umi';
 import { Dispatch, AnyAction } from 'redux';
@@ -14,7 +23,7 @@ const Option = Select.Option;
 interface TodoProps {
   type: string;
   addMode: boolean;
-  todos: any,
+  todos: any;
   dispatch: Dispatch<AnyAction>;
 }
 
@@ -30,7 +39,7 @@ interface TodoState {
 }
 
 class TodoList extends Component<TodoProps, TodoState> {
-  constructor(props : TodoProps) {
+  constructor(props: TodoProps) {
     super(props);
     this.state = {
       visible: false,
@@ -49,7 +58,7 @@ class TodoList extends Component<TodoProps, TodoState> {
     this.fetchTodoList(type);
   }
 
-  fetchTodoList = (type : string) => {
+  fetchTodoList = (type: string) => {
     selectData(type).then((data) => {
       this.props.dispatch({
         type: 'todos/getTodos',
@@ -71,20 +80,28 @@ class TodoList extends Component<TodoProps, TodoState> {
   };
 
   handleOk = () => {
-    const { id, description, dueDate, detail, status, addStatus, createTime } = this.state;
+    const {
+      id,
+      description,
+      dueDate,
+      detail,
+      status,
+      addStatus,
+      createTime,
+    } = this.state;
     const { type } = this.props;
+    console.log(createTime);
     let data = {
       description,
       updateTime: Date.now(),
       detail,
       status,
-      createTime,
+      createTime: createTime || Date.now(),
     };
     if (dueDate !== null && dueDate !== undefined) {
       data = {
         ...data,
         dueDate: dueDate.valueOf(),
-        createTime: createTime || Date.now(),
       };
     }
     if (!addStatus) {
@@ -93,32 +110,37 @@ class TodoList extends Component<TodoProps, TodoState> {
         id,
         createTime: createTime || Date.now(),
       };
-      updateData(data).then((data) => {
-        this.props.dispatch({
-          type: 'todo/updateToDo',
-          payload: data
-        });
-      }).then(() => this.fetchTodoList(type));
+      updateData(data)
+        .then((data) => {
+          this.props.dispatch({
+            type: 'todo/updateToDo',
+            payload: data,
+          });
+        })
+        .then(() => this.fetchTodoList(type));
     } else {
-      saveData(data).then((res) => {
-        this.props.dispatch({
-          type: 'todo/addToDo',
-          payload: data
-        });
-      }).then(() => this.fetchTodoList(type));
+      console.log(data);
+      saveData(data)
+        .then((res) => {
+          this.props.dispatch({
+            type: 'todo/addToDo',
+            payload: data,
+          });
+        })
+        .then(() => this.fetchTodoList(type));
     }
 
     this.setState({
       visible: false,
       addStatus: false,
     });
-  }
+  };
   handleCancel = () => {
     this.setState({
       visible: false,
       addStatus: false,
     });
-  }
+  };
 
   handleDueDateChange = (dueDate) => {
     this.setState({
@@ -132,7 +154,7 @@ class TodoList extends Component<TodoProps, TodoState> {
     });
   };
 
-  handleDescriptionChange = (e : any) => {
+  handleDescriptionChange = (e: any) => {
     this.setState({
       description: e.target.value,
     });
@@ -144,7 +166,7 @@ class TodoList extends Component<TodoProps, TodoState> {
     });
   };
 
-  handleExpandRow = (expanded : boolean, record : ITodo) => {
+  handleExpandRow = (expanded: boolean, record: ITodo) => {
     if (expanded) {
       this.setState({
         id: record.id,
@@ -159,7 +181,14 @@ class TodoList extends Component<TodoProps, TodoState> {
 
   saveDetailChange = () => {
     if (!this.state.addStatus) {
-      const { id, description, dueDate, detail, status, createTime } = this.state;
+      const {
+        id,
+        description,
+        dueDate,
+        detail,
+        status,
+        createTime,
+      } = this.state;
       const { type } = this.props;
       const data = {
         id,
@@ -170,24 +199,31 @@ class TodoList extends Component<TodoProps, TodoState> {
         dueDate,
         createTime,
       };
-      updateData(data).then((data) => {
-        this.props.dispatch({
-          type: 'todo/updateToDo',
-          payload: data
+      updateData(data)
+        .then((data) => {
+          this.props.dispatch({
+            type: 'todo/updateToDo',
+            payload: data,
+          });
+        })
+        .then(() => {
+          notification.open({
+            message: 'Save Detail Successfully.',
+          });
+          this.fetchTodoList(type);
         });
-      }).then(() => {
-        notification.open({
-          message: 'Save Detail Successfully.'
-        });
-        this.fetchTodoList(type);
-      });
     }
   };
 
-  renderToggleContent = () =>
-    <DetailView detail={this.state.detail} handleDetailChange={this.handleDetailChange} saveDetailChange={this.saveDetailChange} />;
+  renderToggleContent = () => (
+    <DetailView
+      detail={this.state.detail}
+      handleDetailChange={this.handleDetailChange}
+      saveDetailChange={this.saveDetailChange}
+    />
+  );
 
-  renderTag = (text : string) => {
+  renderTag = (text: string) => {
     if (text === 'todo') {
       return <Tag color="#FFA500">todo</Tag>;
     }
@@ -200,27 +236,32 @@ class TodoList extends Component<TodoProps, TodoState> {
   render() {
     const { addStatus } = this.state;
     const columns = [
-      { title: 'Description',
+      {
+        title: 'Description',
         dataIndex: 'description',
         key: 'description',
         className: 'table-column',
-        sorter: (a : ITodo, b : ITodo) => a.description.length - b.description.length,
+        sorter: (a: ITodo, b: ITodo) =>
+          a.description.length - b.description.length,
       },
-      { title: 'Create Time',
+      {
+        title: 'Create Time',
         dataIndex: 'createTime',
         className: 'table-column',
-        render: text => moment(text).format('YYYY-MM-DD HH:mm:ss'),
+        render: (text) => moment(text).format('YYYY-MM-DD HH:mm:ss'),
         key: 'createTime',
         sorter: (a, b) => a.createTime - b.createTime,
       },
-      { title: 'Update Time',
+      {
+        title: 'Update Time',
         dataIndex: 'updateTime',
         className: 'table-column',
-        render: text => moment(text).format('YYYY-MM-DD HH:mm:ss'),
+        render: (text) => moment(text).format('YYYY-MM-DD HH:mm:ss'),
         key: 'updateTime',
         sorter: (a, b) => a.updateTime - b.updateTime,
       },
-      { title: 'Due Date',
+      {
+        title: 'Due Date',
         dataIndex: 'dueDate',
         className: 'table-column',
         render: (text) => {
@@ -232,16 +273,18 @@ class TodoList extends Component<TodoProps, TodoState> {
         key: 'dueDate',
         sorter: (a, b) => a.dueDate - b.dueDate,
       },
-      { title: 'Status',
+      {
+        title: 'Status',
         dataIndex: 'status',
         key: 'status',
         className: 'table-column',
         render: this.renderTag,
       },
-      { title: 'Action',
+      {
+        title: 'Action',
         className: 'table-column',
         key: 'action',
-        render: text => (
+        render: (text) => (
           <Button
             icon={<EditFilled />}
             size="small"
@@ -262,30 +305,33 @@ class TodoList extends Component<TodoProps, TodoState> {
               });
             }}
           >
-          Edit
+            Edit
           </Button>
-        )
+        ),
       },
     ];
 
     return (
       <div className="home-todo-list">
-        {this.props.addMode &&
-          <div className="todo-list-add-btn" >
+        {this.props.addMode && (
+          <div className="todo-list-add-btn">
             <Button
               type="primary"
               icon={<FileAddFilled />}
-              onClick={this.handleAdd}>
-                Add
+              onClick={this.handleAdd}
+            >
+              Add
             </Button>
           </div>
-        }
+        )}
         <Table
           columns={columns}
           expandedRowRender={this.renderToggleContent}
           dataSource={this.props.todos || []}
-          rowKey={record => record.id}
-          onExpand={(expanded, record) => { this.handleExpandRow(expanded, record); }}
+          rowKey={(record) => record.id}
+          onExpand={(expanded, record) => {
+            this.handleExpandRow(expanded, record);
+          }}
         />
         <Modal
           title={!addStatus ? 'Edit' : 'Add'}
@@ -295,7 +341,7 @@ class TodoList extends Component<TodoProps, TodoState> {
           onCancel={this.handleCancel}
         >
           <div>
-            <div className="edit-view" >
+            <div className="edit-view">
               {'Description:  '}
               <Input
                 style={{ width: '20vw' }}
@@ -303,7 +349,7 @@ class TodoList extends Component<TodoProps, TodoState> {
                 onChange={this.handleDescriptionChange}
               />
             </div>
-            <div className="edit-view" >
+            <div className="edit-view">
               {'Status:  '}
               <Select
                 style={{ width: 120, marginLeft: 32 }}
@@ -315,7 +361,7 @@ class TodoList extends Component<TodoProps, TodoState> {
                 <Option value="deleted">deleted</Option>
               </Select>
             </div>
-            <div className="edit-view" >
+            <div className="edit-view">
               {'Due Date:  '}
               <DatePicker
                 showTime
@@ -329,7 +375,11 @@ class TodoList extends Component<TodoProps, TodoState> {
             </div>
             <br />
             <h4>Detail</h4>
-            <DetailView detail={this.state.detail} handleDetailChange={this.handleDetailChange} saveDetailChange={this.saveDetailChange} />
+            <DetailView
+              detail={this.state.detail}
+              handleDetailChange={this.handleDetailChange}
+              saveDetailChange={this.saveDetailChange}
+            />
           </div>
         </Modal>
       </div>
@@ -337,6 +387,6 @@ class TodoList extends Component<TodoProps, TodoState> {
   }
 }
 
-export default connect(({ todos } : any) => ({
+export default connect(({ todos }: any) => ({
   todos,
 }))(TodoList);

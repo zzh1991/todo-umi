@@ -1,11 +1,11 @@
 import React from 'react';
-import styles from './index.less';
+import Container from '../components/Container';
 import TodoList from '../components/TodoList';
 
 export default () => {
   return (
-    <div>
+    <Container>
       <TodoList addMode={true} type={'todo'} />
-    </div>
+    </Container>
   );
-}
+};

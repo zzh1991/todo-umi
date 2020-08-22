@@ -5,8 +5,8 @@ import { EditFilled, SaveFilled, CloseCircleFilled } from '@ant-design/icons';
 import ReactMarkdown from 'react-markdown';
 import './DetailView.less';
 
-import "ace-builds/src-noconflict/theme-github";
-import "ace-builds/src-noconflict/mode-markdown";
+import 'ace-builds/src-noconflict/theme-github';
+import 'ace-builds/src-noconflict/mode-markdown';
 
 interface DetailProps {
   detail: string | undefined;
@@ -19,8 +19,7 @@ interface DetailState {
 }
 
 export default class DetailView extends Component<DetailProps, DetailState> {
-
-  constructor(props : DetailProps) {
+  constructor(props: DetailProps) {
     super(props);
     this.state = {
       editMode: false,
@@ -43,16 +42,18 @@ export default class DetailView extends Component<DetailProps, DetailState> {
   render() {
     const { detail } = this.props;
     return (
-      <div className="detail-grid" >
-        <div className="detail-button" >
-          <Button icon={<SaveFilled />} onClick={this.saveModification} >Save</Button>
+      <div className="detail-grid">
+        <div className="detail-button">
+          <Button icon={<SaveFilled />} onClick={this.saveModification}>
+            Save
+          </Button>
         </div>
         <div className="editor-view">
           <AceEditor
             mode="markdown"
             theme="github"
             name="detail"
-            style={{ maxHeight: '40vh', flex: 1, height: '40vh' }}
+            style={{ maxHeight: '35vh', flex: 1, height: '35vh' }}
             fontSize={14}
             showPrintMargin={false}
             showGutter={false}
@@ -60,11 +61,11 @@ export default class DetailView extends Component<DetailProps, DetailState> {
             value={detail}
             onChange={this.props.handleDetailChange}
             setOptions={{
-            enableBasicAutocompletion: false,
-            enableLiveAutocompletion: false,
-            enableSnippets: false,
-            showLineNumbers: false,
-            tabSize: 2,
+              enableBasicAutocompletion: false,
+              enableLiveAutocompletion: false,
+              enableSnippets: false,
+              showLineNumbers: false,
+              tabSize: 2,
             }}
           />
           <ReactMarkdown className="home-detail-view" source={detail} />
