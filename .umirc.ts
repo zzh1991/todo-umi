@@ -7,6 +7,7 @@ export default defineConfig({
   history: {
     type: 'hash',
   },
+  hash: true,
   ignoreMomentLocale: true,
   dynamicImport: {},
   chunks: ['vendors', 'umi'],
