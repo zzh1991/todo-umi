@@ -1,5 +1,7 @@
 # todo umi project
 
+[![Page Views Count](https://badges.toozhao.com/badges/01EH2FA8PC751BT84JGSKE8KG5/green.svg)](https://badges.toozhao.com/badges/01EH2FA8PC751BT84JGSKE8KG5/green.svg "Get your own page views count badge on badges.toozhao.com")
+
 ## Getting Started
 
 Install dependencies
