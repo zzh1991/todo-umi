@@ -23,7 +23,7 @@
     "@umijs/preset-react": "1.5.22",
     "@umijs/test": "3.2.16",
     "ace-builds": "^1.4.12",
-    "dexie": "3.0.2",
+    "dexie": "3.0.3",
     "lint-staged": "10.2.11",
     "prettier": "2.0.5",
     "react": "16.13.1",
