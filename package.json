@@ -35,7 +35,7 @@
     "yorkie": "2.0.0"
   },
   "devDependencies": {
-    "compression-webpack-plugin": "^5.0.0",
+    "compression-webpack-plugin": "^7.1.2",
     "umi-webpack-bundle-analyzer": "^3.6.0"
   }
 }
